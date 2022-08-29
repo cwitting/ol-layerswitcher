@@ -514,6 +514,8 @@ export default class LayerSwitcher extends Control {
 
     const checkboxId = LayerSwitcher.uuid();
 
+    const btnId = LayerSwitcher.uuid();
+
     const label = document.createElement('label');
 
     if (lyr instanceof LayerGroup && !lyr.get('combine')) {
@@ -529,11 +531,15 @@ export default class LayerSwitcher extends Control {
         li.classList.add(CSS_PREFIX + 'fold');
         li.classList.add(CSS_PREFIX + lyr.get('fold'));
         const btn = document.createElement('button');
+        btn.id = btnId
         btn.onclick = function (e) {
           const evt = e || window.event;
           LayerSwitcher.toggleFold_(lyr, li);
           evt.preventDefault();
         };
+        if (options.groupSelectStyle == 'none') {
+          label.htmlFor = btnId;
+        }
         li.appendChild(btn);
       }
 
